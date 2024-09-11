@@ -1,18 +1,33 @@
+const btn = document.querySelector("button");
+
+//문서객체에 이벤트 속성에 직접 함수를 대입하면
+//추후 다른 함수로 덮어쓰기될 잠재적인 이슈 발생
+/*
+btn.onclick = () => {
+  console.log("엄청 중요한 기능");
+};
+
+btn.onclick = () => {
+  console.log("쓰잘데기 없는 기능");
+};
+*/
+
+//아래 같이 이벤트 전용 내장함수를 사용하면 기존 함수가 덮어씌어지는 이슈 방지 가능
+btn.addEventListener("click", () => {
+  console.log("엄청 중요한 기능");
+});
+
+btn.addEventListener("click", () => {
+  console.log("쓰잘데기 없는 기능");
+});
+
 const a = document.querySelector("a");
-console.dir(a);
 
-//a.href = "https://www.naver.com";
-//console.log(a.href);
-
-//문서객체의 속성값 변경, 속성환 반환을 위한 전용 내장 함수
-//setAttribute, getAttribute라는 내장 함수를 이용하면
-//data-접두사가 붙은 커스텀 속성도 편하게 수정, 호출 가능
-a.setAttribute("href", "https://www.naver.com");
-
-//문서객체의 특정 속성값 가져오기
-console.log(a.getAttribute("href"));
-
-//a.data-index = '3';
-a.setAttribute("data-index", 3);
-console.log(a.getAttribute("data-index"));
-console.dir(a);
+//a요소에 이벤트 연결시 주의점
+//a요소는 href값 등록된 url로 링크 이동이라는 디폴트 기능 설정
+//a요소에 클릭 이벤트 연결할시에는 미리 링크이동이라는 디폴트 기능을 막아줌
+a.addEventListener("click", (e) => {
+  //a요소의 기본 기능인 링크기능을 막아주는 함수
+  e.preventDefault();
+  console.log("You clicked a button!!");
+});
